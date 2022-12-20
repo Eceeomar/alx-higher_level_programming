@@ -1,71 +1,72 @@
 #!/usr/bin/python3
+"""Singly Linked Lists module.
+This module contains methods about the creation and hendling of
+SinglyLinkedList and Node objects.
+"""
 
-"""Define a class Square."""
 
+class Node():
+    """Defines a node of a singly linked list."""
 
-class Square:
-    """Represent a square."""
-
-    def __init__(self, size=0, position=(0, 0)):
-        """Initialize a new square.
-
+    def __init__(self, data, next_node=None):
+        """Sets the necessary attributes for the Node object.
         Args:
-            size (int): The size of the new square.
-            position (int, int): The position of the new square.
+            data (int): the value of the node
+            next_node (Node): the next Node
         """
-        self.size = size
-        self.position = position
+        self.data = data
+        self.next_node = next_node
 
     @property
-    def size(self):
-        """Get/set the current size of the square."""
-        return (self.__size)
+    def data(self):
+        """Get or set the data value of a node."""
+        return self.__data
 
-    @size.setter
-    def size(self, value):
-        if not isinstance(value, int):
-            raise TypeError("size must be an integer")
-        elif value < 0:
-            raise ValueError("size must be >= 0")
-        self.__size = value
+    @data.setter
+    def data(self, value):
+        if type(value) is int:
+            self.__data = value
+        else:
+            raise TypeError("data must be an integer")
 
     @property
-    def position(self):
-        """Get/set the current position of the square."""
-        return (self.__position)
+    def next_node(self):
+        """Get or set the next node of the current node."""
+        return self.__next_node
 
-    @position.setter
-    def position(self, value):
-        if (not isinstance(value, tuple) or
-                len(value) != 2 or
-                not all(isinstance(num, int) for num in value) or
-                not all(num >= 0 for num in value)):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        self.__position = value
+    @next_node.setter
+    def next_node(self, value):
+        if type(value) is Node or value is None:
+            self.__next_node = value
+        else:
+            raise TypeError("next_node must be a Node object")
 
-    def area(self):
-        """Return the current area of the square."""
-        return (self.__size * self.__size)
 
-    def my_print(self):
-        """Print the square with the # character."""
-        if self.__size == 0:
-            print("")
-            return
+class SinglyLinkedList():
+    """Defines a singly linked list"""
 
-        [print("") for i in range(0, self.__position[1])]
-        for i in range(0, self.__size):
-            [print(" ", end="") for j in range(0, self.__position[0])]
-            [print("#", end="") for k in range(0, self.__size)]
-            print("")
+    def __init__(self):
+        """Sets the necessary attributes for the SinglyLinkedList object."""
+        self.__head = None
 
     def __str__(self):
-        """Define the print() representation of a Square."""
-        if self.__size != 0:
-            [print("") for i in range(0, self.__position[1])]
-        for i in range(0, self.__size):
-            [print(" ", end="") for j in range(0, self.__position[0])]
-            [print("#", end="") for k in range(0, self.__size)]
-            if i != self.__size - 1:
-                print("")
-        return ("") 
+        """Sets the print behavior of the SinglyLinkedList object."""
+        sll_str = ""
+        node = self.__head
+
+        if node is not None:
+            while node is not None:
+                sll_str += str(node.data) + '\n'
+                node = node.next_node
+
+        return sll_str[:-1]
+
+    def sorted_insert(self, value):
+        node = self.__head
+
+        if node is None or self.__head.data >= value:
+            self.__head = Node(value, self.__head)
+        else:
+            while node.next_node is not None and node.next_node.data < value:
+                node = node.next_node
+            node.next_node = Node(value, node.next_node) 
