@@ -1,5 +1,15 @@
 #!/usr/bin/python3
-print_list_integer = __import__('0-print_list_integer').print_list_integer
+add_integer = __import__('0-add_integer').add_integer
 
-my_list = [1, 2, 3, 4, 5]
-print_list_integer(my_list)
+print(add_integer(1, 2))
+print(add_integer(100, -2))
+print(add_integer(2))
+print(add_integer(100.3, -2))
+try:
+    print(add_integer(4, "School"))
+except Exception as e:
+    print(e)
+try:
+    print(add_integer(None))
+except Exception as e:
+    print(e)
