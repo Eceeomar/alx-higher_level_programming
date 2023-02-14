@@ -1,1 +1,1 @@
- A readme file for the solutions to the 0x0D. SQL - Introduction task
+Solution to the 0x0D-SQL_introduction task
